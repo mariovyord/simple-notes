@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { NotesEditorComponent } from "./components/notes-editor/notes-editor.component";
 import { NotesListComponent } from "./components/notes-list/notes-list.component";
 import { NotesService } from "./services/notes.service";
@@ -10,9 +10,14 @@ import { CommonModule } from "@angular/common";
   imports: [NotesEditorComponent, NotesListComponent, CommonModule],
   templateUrl: "./notes.component.html",
   styleUrl: "./notes.component.css",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesComponent {
   public notes$ = this.notesService.notes;
 
   constructor(private notesService: NotesService) {}
+
+  public onCreate(): void {
+    this.notesService.createNote();
+  }
 }

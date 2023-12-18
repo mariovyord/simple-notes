@@ -1,2 +1,5 @@
-<app-notes-list [notes]="(notes$ | async) ?? []"></app-notes-list>
+<app-notes-list
+  (onCreate)="onCreate()"
+  [notes]="(notes$ | async) ?? []"
+></app-notes-list>
 <app-notes-editor></app-notes-editor>

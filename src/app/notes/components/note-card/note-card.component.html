@@ -3,12 +3,15 @@
   (mouseover)="displayDeleteBtn = true"
   (mouseleave)="displayDeleteBtn = false"
 >
-  <button class="btn btn-primary flex-1 justify-start">{{ note.title }}</button>
+  <button class="btn btn-primary flex-1 justify-start">
+    {{ note.title || "Draft note" }}
+  </button>
 
   @if (displayDeleteBtn) {
   <div
     class="tooltip tooltip-right flex justify-center items-center"
     data-tip="Delete"
+    (click)="onDelete()"
   >
     <button>🗑</button>
   </div>

@@ -5,9 +5,12 @@ import {
   Observable,
   catchError,
   finalize,
+  from,
   of,
   shareReplay,
+  tap,
 } from "rxjs";
+import { db } from "../../database/db";
 
 const mockNotes: INote[] = [
   {
@@ -47,6 +50,11 @@ const mockNotes: INote[] = [
   },
 ];
 
+/**
+ * TODOs:
+ * 1. Create DB service to abstract away the db interface
+ * 2. Improve better handling - show notification of error
+ */
 @Injectable({
   providedIn: "root",
 })
@@ -78,7 +86,53 @@ export class NotesService {
     return this._notes$.asObservable();
   }
 
+  public async createNote() {
+    const draftNote = {
+      title: "",
+      content: "",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    const id = await db.notes.add(draftNote as INote);
+
+    const notes = structuredClone(this._notes$.value);
+    const newNote: INote = {
+      id,
+      ...draftNote,
+    };
+
+    notes.push(newNote);
+
+    this._notes$.next(notes);
+  }
+
+  public getNoteById(id: string): INote | undefined {
+    return this._notes$.value.find((v) => v.id === id);
+  }
+
+  public updateNote(note: INote): void {
+    note.updatedAt = new Date();
+    db.notes.put(note).then(() => {
+      const notes = structuredClone(this._notes$.value);
+      const i = notes.findIndex((x) => x.id === note.id);
+      notes[i] = note;
+
+      this._notes$.next(notes);
+    });
+  }
+
+  public deleteNote(id: string): Observable<void> {
+    return from(db.notes.delete(id)).pipe(
+      tap(() => {
+        let notes = structuredClone(this._notes$.value);
+        notes = notes.filter((x) => x.id !== id);
+
+        this._notes$.next(notes);
+      })
+    );
+  }
+
   private fetchNotes(): Observable<INote[]> {
-    return of(mockNotes).pipe(shareReplay(1));
+    return from(db.notes.toArray());
   }
 }
