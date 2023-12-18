@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
+import { INote } from "../../types/note";
 
 @Component({
   selector: "app-note-card",
@@ -7,4 +8,6 @@ import { Component } from "@angular/core";
   templateUrl: "./note-card.component.html",
   styleUrl: "./note-card.component.css",
 })
-export class NoteCardComponent {}
+export class NoteCardComponent {
+  @Input() note: INote;
+}
