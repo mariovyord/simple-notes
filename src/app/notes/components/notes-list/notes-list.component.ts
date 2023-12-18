@@ -1,0 +1,9 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-notes-list',
+  standalone: true,
+  imports: [],
+  templateUrl: './notes-list.component.html',
+})
+export class NotesListComponent {}
