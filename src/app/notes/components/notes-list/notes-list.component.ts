@@ -10,5 +10,5 @@ import { INote } from "../../types/note";
   styleUrl: "./notes-list.component.css",
 })
 export class NotesListComponent {
-  @Input() notes: INote[];
+  @Input() public notes: INote[];
 }

@@ -1,7 +1,16 @@
-<button class="btn btn-primary flex-1 justify-start">{{ note.title }}</button>
 <div
-  class="tooltip tooltip-open tooltip-right flex justify-center items-center"
-  data-tip="Delete"
+  class="flex gap-1"
+  (mouseover)="displayDeleteBtn = true"
+  (mouseleave)="displayDeleteBtn = false"
 >
-  <button>&#10006;</button>
+  <button class="btn btn-primary flex-1 justify-start">{{ note.title }}</button>
+
+  @if (displayDeleteBtn) {
+  <div
+    class="tooltip tooltip-right flex justify-center items-center"
+    data-tip="Delete"
+  >
+    <button>&#10006;</button>
+  </div>
+  }
 </div>

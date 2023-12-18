@@ -10,4 +10,6 @@ import { INote } from "../../types/note";
 })
 export class NoteCardComponent {
   @Input() note: INote;
+
+  public displayDeleteBtn = false;
 }

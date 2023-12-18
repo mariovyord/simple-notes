@@ -1,5 +1,7 @@
 @for (note of notes; track note.id) {
-<app-note-card [note]="note"></app-note-card>
+<div class="mb-2">
+  <app-note-card [note]="note"></app-note-card>
+</div>
 }
 
 <button class="btn w-full justify-start">Create note</button>
