@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
-import { INote } from "../../../shared/types/note";
+import { NoteEntity } from "../../../shared/types/note";
 import { NotesService } from "../../services/notes.service";
 import { MetaService } from "../../services/meta.service";
 import { CommonModule } from "@angular/common";
@@ -13,7 +13,7 @@ import { CommonModule } from "@angular/common";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteCardComponent {
-  @Input() note: INote;
+  @Input() note: NoteEntity;
 
   public selectedNoteId = this.metaService.selectedNoteId;
   public displayDeleteBtn = false;

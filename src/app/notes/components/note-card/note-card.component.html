@@ -9,7 +9,7 @@
     [class.btn-primary]="(selectedNoteId | async) !== note.id"
     [class.btn-accent]="(selectedNoteId | async) === note.id"
   >
-    {{ note.title || "Draft note" }}
+    {{ note.title }}
   </button>
 
   @if (displayDeleteBtn) {

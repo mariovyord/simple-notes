@@ -7,10 +7,10 @@ import {
   SimpleChanges,
   OnChanges,
 } from "@angular/core";
-import { INote } from "../../../shared/types/note";
 import { FormControl, FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
 import { Subscription, debounceTime, distinctUntilChanged } from "rxjs";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
+import { NoteEntity } from "../../../shared/types/note";
 
 @UntilDestroy()
 @Component({
@@ -22,8 +22,8 @@ import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesEditorComponent implements OnChanges {
-  @Input() public note: INote;
-  @Output() public onTextUpdate = new EventEmitter<INote>();
+  @Input() public note: NoteEntity;
+  @Output() public onTextUpdate = new EventEmitter<NoteEntity>();
 
   public contentControl: FormControl;
   public debounce: number = 100;
@@ -41,8 +41,8 @@ export class NotesEditorComponent implements OnChanges {
       this.subscribtion = this.contentControl.valueChanges
         .pipe(debounceTime(this.debounce), distinctUntilChanged(), untilDestroyed(this))
         .subscribe((value) => {
-          const updatedNote: INote = { ...this.note, content: value };
-          this.onTextUpdate.emit(updatedNote);
+          this.note.content = value;
+          this.onTextUpdate.emit(this.note);
         });
     }
   }

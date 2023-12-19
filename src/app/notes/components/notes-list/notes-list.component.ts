@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { NoteCardComponent } from "../note-card/note-card.component";
-import { INote } from "../../../shared/types/note";
+import { NoteEntity } from "../../../shared/types/note";
 
 @Component({
   selector: "app-notes-list",
@@ -11,6 +11,6 @@ import { INote } from "../../../shared/types/note";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesListComponent {
-  @Input({ required: true }) public notes: INote[];
+  @Input({ required: true }) public notes: NoteEntity[];
   @Output() public onCreate = new EventEmitter();
 }

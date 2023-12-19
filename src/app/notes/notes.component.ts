@@ -5,7 +5,7 @@ import { NotesService } from "./services/notes.service";
 import { CommonModule } from "@angular/common";
 import { MetaService } from "./services/meta.service";
 import { of, switchMap } from "rxjs";
-import { INote } from "../shared/types/note";
+import { NoteEntity } from "../shared/types/note";
 
 @Component({
   selector: "app-notes",
@@ -16,7 +16,7 @@ import { INote } from "../shared/types/note";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesComponent {
-  public notes$ = this.notesService.notes;
+  public notes$ = this.notesService.notes$;
   public selectedNote$ = this.metaService.selectedNoteId.pipe(
     switchMap((id) => {
       return this.notes$.pipe(
@@ -34,7 +34,7 @@ export class NotesComponent {
     this.notesService.createNote();
   }
 
-  public onTextUpdate(note: INote): void {
+  public onTextUpdate(note: NoteEntity): void {
     this.notesService.updateNote(note);
   }
 }

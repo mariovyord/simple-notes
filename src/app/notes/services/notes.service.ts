@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { INote } from "../../shared/types/note";
-import { BehaviorSubject, Observable, catchError, finalize, from, of, take, tap } from "rxjs";
+import { INote, NoteEntity } from "../../shared/types/note";
+import { BehaviorSubject, Observable, catchError, finalize, from, map, mergeMap, of, switchMap, take, tap } from "rxjs";
 import { Collection, IndexedDbService } from "../../shared/services/indexed-db.service";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 
@@ -22,7 +22,7 @@ export class NotesService extends IndexedDbService {
     super(Collection.notes);
   }
 
-  get notes(): Observable<INote[]> {
+  get notes$(): Observable<NoteEntity[]> {
     if (!this._initialized && !this._fetching) {
       this._fetching = true;
 
@@ -43,7 +43,7 @@ export class NotesService extends IndexedDbService {
         });
     }
 
-    return this._notes$.asObservable();
+    return this._notes$.asObservable().pipe(map((arr) => arr.map((n) => new NoteEntity(n))));
   }
 
   public createNote(): void {
@@ -69,11 +69,16 @@ export class NotesService extends IndexedDbService {
       });
   }
 
-  public getNoteById(id: string): INote | undefined {
-    return this._notes$.value.find((v) => v.id === id);
+  public getNoteById(id: string): NoteEntity | undefined {
+    const note = this._notes$.value.find((v) => v.id === id);
+    if (!note) {
+      return note;
+    }
+
+    return new NoteEntity(note);
   }
 
-  public updateNote(note: INote): void {
+  public updateNote(note: NoteEntity): void {
     note.updatedAt = new Date();
 
     this.put(note)
