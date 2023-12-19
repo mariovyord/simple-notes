@@ -15,7 +15,7 @@ Work in progress.
 
 ## Database
 
-All data is stored locally in the browser. No user data is being collected in any shape or form and no accounts are needed.
+All data is stored locally in the browser. No user data is being collected and no accounts are needed.
 
 - Notes are stored in Indexed DB
 - App metadata is stored in Local Storage
