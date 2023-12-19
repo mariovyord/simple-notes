@@ -1,5 +1,5 @@
 <app-notes-list
-  (create)="createNote()"
+  (createNote)="createNote()"
   [notes]="(notes$ | async) ?? []"
 ></app-notes-list>
 
@@ -9,5 +9,5 @@
   [note]="(selectedNote$ | async)!"
 ></app-notes-editor>
 } @else {
-<div>Create your first note</div>
+<div class="p-3 text-xl">You have no notes. Create one :&rpar;</div>
 }

@@ -36,8 +36,8 @@ export class NotesEditorComponent implements OnChanges {
         this.subscribtion.unsubscribe();
       }
 
-      this.contentControl = new FormControl("");
-      this.contentControl.setValue(this.note.content || "");
+      this.contentControl = new FormControl();
+      this.contentControl.setValue(this.note.content);
 
       this.subscribtion = this.contentControl.valueChanges
         .pipe(debounceTime(this.debounce), distinctUntilChanged(), untilDestroyed(this))
