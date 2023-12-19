@@ -30,11 +30,11 @@ export class NotesComponent {
 
   constructor(private notesService: NotesService, private metaService: MetaService) {}
 
-  public create(): void {
+  public createNote(): void {
     this.notesService.createNote();
   }
 
-  public textUpdate(note: NoteEntity): void {
+  public updateNote(note: NoteEntity): void {
     this.notesService.updateNote(note);
   }
 }

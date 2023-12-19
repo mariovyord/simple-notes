@@ -24,7 +24,7 @@ import { RichTextEditorComponent } from "../../../shared/components/rich-text-ed
 })
 export class NotesEditorComponent implements OnChanges {
   @Input() public note: NoteEntity;
-  @Output() public textUpdate = new EventEmitter<NoteEntity>();
+  @Output() public updateNote = new EventEmitter<NoteEntity>();
 
   public contentControl: FormControl;
   public debounce: number = 100;
@@ -43,7 +43,7 @@ export class NotesEditorComponent implements OnChanges {
         .pipe(debounceTime(this.debounce), distinctUntilChanged(), untilDestroyed(this))
         .subscribe((value) => {
           this.note.content = value;
-          this.textUpdate.emit(this.note);
+          this.updateNote.emit(this.note);
         });
     }
   }
