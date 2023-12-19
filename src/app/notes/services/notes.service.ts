@@ -3,6 +3,7 @@ import { INote, NoteEntity } from "../../shared/types/note";
 import { BehaviorSubject, Observable, catchError, finalize, map, of, take } from "rxjs";
 import { Collection, IndexedDbService } from "../../shared/services/indexed-db.service";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
+import { MetaService } from "./meta.service";
 /**
  * TODOs:
  * 1. Create DB service to abstract away the db interface - DONE
@@ -17,7 +18,7 @@ export class NotesService extends IndexedDbService {
   private _initialized = false;
   private _fetching = false;
 
-  constructor() {
+  constructor(private metaService: MetaService) {
     super(Collection.notes);
   }
 
@@ -64,6 +65,7 @@ export class NotesService extends IndexedDbService {
         notes.push(newNote);
 
         this._notes$.next(notes);
+        this.metaService.selectNote(id);
       });
   }
 
@@ -97,6 +99,10 @@ export class NotesService extends IndexedDbService {
         notes = notes.filter((x) => x.id !== id);
 
         this._notes$.next(notes);
+        if (this._notes$.value.length > 0) {
+          const id = this._notes$.value[0].id!;
+          this.metaService.selectNote(id);
+        }
       });
   }
 }

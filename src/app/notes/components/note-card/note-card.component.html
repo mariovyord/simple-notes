@@ -1,11 +1,10 @@
-<div class="flex gap-1">
+<div
+  class="flex gap-1"
+  (mouseover)="displayDeleteBtn = true"
+  (mouseleave)="displayDeleteBtn = false"
+>
   <button
-    (mouseover)="displayDeleteBtn = true"
-    (focus)="displayDeleteBtn = true"
-    (blur)="displayDeleteBtn = false"
-    (mouseleave)="displayDeleteBtn = false"
     (click)="onSelect()"
-    (keydown)="onSelect()"
     class="btn btn-primary flex-1 justify-start"
     [class.btn-primary]="(selectedNoteId | async) !== note.id"
     [class.btn-accent]="(selectedNoteId | async) === note.id"
