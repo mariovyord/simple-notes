@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, forwardRef } from "@angular/core";
+import { Component, OnInit, forwardRef } from "@angular/core";
 import {
   ControlValueAccessor,
   FormBuilder,
@@ -8,7 +8,7 @@ import {
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from "@angular/forms";
-import { ContentChange, QuillModule } from "ngx-quill";
+import { QuillModule } from "ngx-quill";
 import { Delta } from "quill";
 
 @Component({
@@ -25,7 +25,7 @@ import { Delta } from "quill";
     },
   ],
 })
-export class RichTextEditorComponent implements ControlValueAccessor {
+export class RichTextEditorComponent implements ControlValueAccessor, OnInit {
   public editorForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -51,11 +51,11 @@ export class RichTextEditorComponent implements ControlValueAccessor {
     this.contentChanged = fn;
   }
 
-  public registerOnTouched(fn: any): void {
+  public registerOnTouched(): void {
     // Required by ControlValueAccessor
   }
 
-  public setDisabledState?(isDisabled: boolean): void {
+  public setDisabledState(): void {
     // Required by ControlValueAccessor
   }
 }

@@ -1,11 +1,11 @@
 <app-notes-list
-  (onCreate)="onCreate()"
+  (create)="create()"
   [notes]="(notes$ | async) ?? []"
 ></app-notes-list>
 
 @if(selectedNote$ | async) {
 <app-notes-editor
-  (onTextUpdate)="onTextUpdate($event)"
+  (textUpdate)="textUpdate($event)"
   [note]="(selectedNote$ | async)!"
 ></app-notes-editor>
 } @else {

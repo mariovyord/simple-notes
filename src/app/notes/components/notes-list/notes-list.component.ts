@@ -13,5 +13,5 @@ import { RouterLink } from "@angular/router";
 })
 export class NotesListComponent {
   @Input({ required: true }) public notes: NoteEntity[];
-  @Output() public onCreate = new EventEmitter();
+  @Output() public create = new EventEmitter();
 }

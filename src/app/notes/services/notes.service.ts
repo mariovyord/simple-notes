@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { INote, NoteEntity } from "../../shared/types/note";
-import { BehaviorSubject, Observable, catchError, finalize, from, map, mergeMap, of, switchMap, take, tap } from "rxjs";
+import { BehaviorSubject, Observable, catchError, finalize, map, of, take } from "rxjs";
 import { Collection, IndexedDbService } from "../../shared/services/indexed-db.service";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 /**

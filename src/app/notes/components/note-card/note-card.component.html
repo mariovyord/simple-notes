@@ -1,10 +1,11 @@
-<div
-  class="flex gap-1"
-  (mouseover)="displayDeleteBtn = true"
-  (mouseleave)="displayDeleteBtn = false"
-  (click)="onSelect()"
->
+<div class="flex gap-1">
   <button
+    (mouseover)="displayDeleteBtn = true"
+    (focus)="displayDeleteBtn = true"
+    (blur)="displayDeleteBtn = false"
+    (mouseleave)="displayDeleteBtn = false"
+    (click)="onSelect()"
+    (keydown)="onSelect()"
     class="btn btn-primary flex-1 justify-start"
     [class.btn-primary]="(selectedNoteId | async) !== note.id"
     [class.btn-accent]="(selectedNoteId | async) === note.id"
@@ -13,12 +14,13 @@
   </button>
 
   @if (displayDeleteBtn) {
-  <div
+  <button
     class="tooltip tooltip-right flex justify-center items-center"
     data-tip="Delete"
     (click)="onDelete()"
+    (keydown)="onSelect()"
   >
-    <button>🗑</button>
-  </div>
+    <div>🗑</div>
+  </button>
   }
 </div>

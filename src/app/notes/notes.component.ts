@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { NotesEditorComponent } from "./components/notes-editor/notes-editor.component";
 import { NotesListComponent } from "./components/notes-list/notes-list.component";
 import { NotesService } from "./services/notes.service";
@@ -30,11 +30,11 @@ export class NotesComponent {
 
   constructor(private notesService: NotesService, private metaService: MetaService) {}
 
-  public onCreate(): void {
+  public create(): void {
     this.notesService.createNote();
   }
 
-  public onTextUpdate(note: NoteEntity): void {
+  public textUpdate(note: NoteEntity): void {
     this.notesService.updateNote(note);
   }
 }
