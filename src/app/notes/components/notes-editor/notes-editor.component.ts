@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { INote } from "../../../shared/types/note";
 
 @Component({
   selector: "app-notes-editor",
@@ -8,4 +9,6 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
   styleUrl: "./notes-editor.component.css",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotesEditorComponent {}
+export class NotesEditorComponent {
+  @Input() public note: INote | null;
+}

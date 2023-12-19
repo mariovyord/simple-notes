@@ -1,1 +1,7 @@
-<textarea class="w-full h-full p-4" placeholder="Write your note"></textarea>
+@if (note) {
+<form>
+  <textarea class="w-full h-full p-4" placeholder="Write your note"></textarea>
+</form>
+} @else {
+<div>Create your first note</div>
+}

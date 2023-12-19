@@ -2,8 +2,13 @@
   class="flex gap-1"
   (mouseover)="displayDeleteBtn = true"
   (mouseleave)="displayDeleteBtn = false"
+  (click)="onSelect()"
 >
-  <button class="btn btn-primary flex-1 justify-start">
+  <button
+    class="btn btn-primary flex-1 justify-start"
+    [class.btn-primary]="(selectedNoteId | async) !== note.id"
+    [class.btn-accent]="(selectedNoteId | async) === note.id"
+  >
     {{ note.title || "Draft note" }}
   </button>
 

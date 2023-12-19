@@ -2,4 +2,4 @@
   (onCreate)="onCreate()"
   [notes]="(notes$ | async) ?? []"
 ></app-notes-list>
-<app-notes-editor></app-notes-editor>
+<app-notes-editor [note]="selectedNote$ | async"></app-notes-editor>

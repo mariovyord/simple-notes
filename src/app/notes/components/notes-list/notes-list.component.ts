@@ -1,12 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { NoteCardComponent } from "../note-card/note-card.component";
-import { INote } from "../../types/note";
+import { INote } from "../../../shared/types/note";
 
 @Component({
   selector: "app-notes-list",

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { INote } from "../types/note";
+import { INote } from "../../shared/types/note";
 import { BehaviorSubject, Observable, catchError, finalize, from, of, tap } from "rxjs";
-import { Collection, DbService } from "../../shared/services/db.service";
+import { Collection, IndexedDbService } from "../../shared/services/indexed-db.service";
 
 /**
  * TODOs:
@@ -11,7 +11,7 @@ import { Collection, DbService } from "../../shared/services/db.service";
 @Injectable({
   providedIn: "root",
 })
-export class NotesService extends DbService {
+export class NotesService extends IndexedDbService {
   private _notes$ = new BehaviorSubject<INote[]>([]);
   private _initialized = false;
   private _fetching = false;

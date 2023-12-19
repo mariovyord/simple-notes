@@ -1,13 +1,12 @@
-import { Injectable } from "@angular/core";
 import { Observable, from } from "rxjs";
 import { db } from "../configs/db";
-import { INote } from "../../notes/types/note";
+import { INote } from "../types/note";
 
 export enum Collection {
   "notes" = "notes",
 }
 
-export abstract class DbService {
+export abstract class IndexedDbService {
   private collection;
 
   constructor(collection: Collection) {
