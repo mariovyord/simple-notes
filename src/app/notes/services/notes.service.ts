@@ -3,7 +3,6 @@ import { INote, NoteEntity } from "../../shared/types/note";
 import { BehaviorSubject, Observable, catchError, finalize, from, map, mergeMap, of, switchMap, take, tap } from "rxjs";
 import { Collection, IndexedDbService } from "../../shared/services/indexed-db.service";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-
 /**
  * TODOs:
  * 1. Create DB service to abstract away the db interface - DONE
@@ -47,9 +46,8 @@ export class NotesService extends IndexedDbService {
   }
 
   public createNote(): void {
-    const draftNote = {
-      title: "",
-      content: "",
+    const draftNote: INote = {
+      content: null,
       createdAt: new Date(),
       updatedAt: new Date(),
     };

@@ -1,13 +1,15 @@
+import { Delta } from "quill";
+
 export interface INote {
   id?: string;
-  content: string;
+  content: Delta | null;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export class NoteEntity implements INote {
   id: string;
-  content: string;
+  content: Delta | null;
   createdAt: Date;
   updatedAt: Date;
 
@@ -25,10 +27,11 @@ export class NoteEntity implements INote {
   }
 
   get title() {
-    if (!this.content) {
-      return "Draft note";
+    if (!this.content || !this.content.ops) {
+      return "A Note";
     }
 
-    return this.content.split("\n")[0].substring(0, 35).trim() + "...";
+    const firstOp = this.content.ops[0].insert.trim();
+    return firstOp.split("\n")[0].substring(0, 35).trim() + "...";
   }
 }

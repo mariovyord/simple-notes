@@ -44,6 +44,7 @@ export class NotesEditorComponent implements OnChanges {
         .pipe(debounceTime(this.debounce), distinctUntilChanged(), untilDestroyed(this))
         .subscribe((value) => {
           this.note.content = value;
+          console.log(value, this.note);
           this.onTextUpdate.emit(this.note);
         });
     }

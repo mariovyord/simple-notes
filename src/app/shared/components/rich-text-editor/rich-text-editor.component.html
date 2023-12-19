@@ -1,8 +1,9 @@
-<quill-editor
-  [(ngModel)]="content"
-  (onContentChanged)="onContentChanged($event)"
-  class="content-editor"
-  placeholder=""
-  style="width: 100%; height: 100%"
->
-</quill-editor>
+<form [formGroup]="editorForm">
+  <quill-editor
+    format="object"
+    formControlName="content"
+    class="content-editor"
+    placeholder=""
+    style="width: 100%; height: 100%"
+  ></quill-editor>
+</form>

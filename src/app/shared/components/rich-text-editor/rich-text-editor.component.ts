@@ -1,13 +1,20 @@
 import { CommonModule } from "@angular/common";
 import { Component, forwardRef } from "@angular/core";
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from "@angular/forms";
+import {
+  ControlValueAccessor,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+} from "@angular/forms";
 import { ContentChange, QuillModule } from "ngx-quill";
 import { Delta } from "quill";
 
 @Component({
   selector: "app-rich-text-editor",
   standalone: true,
-  imports: [CommonModule, QuillModule, FormsModule],
+  imports: [CommonModule, QuillModule, FormsModule, ReactiveFormsModule],
   templateUrl: "./rich-text-editor.component.html",
   styleUrl: "./rich-text-editor.component.css",
   providers: [
@@ -19,30 +26,37 @@ import { Delta } from "quill";
   ],
 })
 export class RichTextEditorComponent implements ControlValueAccessor {
-  public content = "";
+  public editorForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.editorForm = this.fb.group({
+      content: [null],
+    });
+  }
+
+  public ngOnInit(): void {
+    this.editorForm.controls["content"].valueChanges.subscribe((v) => {
+      if (this.contentChanged) {
+        this.contentChanged(v);
+      }
+    });
+  }
+
+  public writeValue(content: Delta): void {
+    console.log("content", content);
+    this.editorForm.patchValue({ content });
+  }
+
   public contentChanged: (content: Delta) => void;
-
-  public onContentChanged(event: ContentChange): void {
-    console.log("event", event);
-    console.log("VALUE", this.content);
-    if (this.contentChanged) {
-      this.contentChanged(event.delta);
-    }
-  }
-
-  public writeValue(content: string): void {
-    this.content = content;
-  }
-
   public registerOnChange(fn: (content: Delta) => void): void {
     this.contentChanged = fn;
   }
 
   public registerOnTouched(fn: any): void {
-    throw new Error("Method not implemented.");
+    // Required by ControlValueAccessor
   }
 
   public setDisabledState?(isDisabled: boolean): void {
-    throw new Error("Method not implemented.");
+    // Required by ControlValueAccessor
   }
 }
