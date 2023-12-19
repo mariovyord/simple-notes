@@ -19,3 +19,7 @@ All data is stored locally in the browser. No user data is being collected and n
 
 - Notes are stored in Indexed DB
 - App metadata is stored in Local Storage
+
+## Themes
+
+The app has light and dark theme. It auto-selects theme based on browser preferences.
