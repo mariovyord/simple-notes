@@ -43,7 +43,6 @@ export class RichTextEditorComponent implements ControlValueAccessor {
   }
 
   public writeValue(content: Delta): void {
-    console.log("content", content);
     this.editorForm.patchValue({ content });
   }
 
