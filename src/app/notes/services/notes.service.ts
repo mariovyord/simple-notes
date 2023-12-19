@@ -75,7 +75,6 @@ export class NotesService extends IndexedDbService {
       const notes = structuredClone(this._notes$.value);
       const i = notes.findIndex((x) => x.id === note.id);
       notes[i] = note;
-
       this._notes$.next(notes);
     });
   }

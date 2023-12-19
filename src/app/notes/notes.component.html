@@ -2,4 +2,12 @@
   (onCreate)="onCreate()"
   [notes]="(notes$ | async) ?? []"
 ></app-notes-list>
-<app-notes-editor [note]="selectedNote$ | async"></app-notes-editor>
+
+@if(selectedNote$ | async) {
+<app-notes-editor
+  (onTextUpdate)="onTextUpdate($event)"
+  [note]="(selectedNote$ | async)!"
+></app-notes-editor>
+} @else {
+<div>Create your first note</div>
+}

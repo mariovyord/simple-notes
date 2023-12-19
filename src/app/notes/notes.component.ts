@@ -4,7 +4,8 @@ import { NotesListComponent } from "./components/notes-list/notes-list.component
 import { NotesService } from "./services/notes.service";
 import { CommonModule } from "@angular/common";
 import { MetaService } from "./services/meta.service";
-import { filter, of, switchMap } from "rxjs";
+import { of, switchMap } from "rxjs";
+import { INote } from "../shared/types/note";
 
 @Component({
   selector: "app-notes",
@@ -31,5 +32,9 @@ export class NotesComponent {
 
   public onCreate(): void {
     this.notesService.createNote();
+  }
+
+  public onTextUpdate(note: INote): void {
+    this.notesService.updateNote(note);
   }
 }

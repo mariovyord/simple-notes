@@ -13,23 +13,23 @@ export abstract class IndexedDbService {
     this.collection = collection;
   }
 
-  public getAll(): Observable<INote[]> {
+  protected getAll(): Observable<INote[]> {
     return from(db[this.collection].toArray());
   }
 
-  public getOne(id: string): Observable<INote | undefined> {
+  protected getOne(id: string): Observable<INote | undefined> {
     return from(db[this.collection].get(id));
   }
 
-  public post(data: INote): Observable<string> {
+  protected post(data: INote): Observable<string> {
     return from(db[this.collection].add(data));
   }
 
-  public put(data: INote): Observable<string> {
-    return from(db[this.collection].put(data));
+  protected put(data: INote): Observable<string> {
+    return from(db[this.collection].put(data, data.id));
   }
 
-  public remove(id: string): Observable<void> {
+  protected remove(id: string): Observable<void> {
     return from(db[this.collection].delete(id));
   }
 }
