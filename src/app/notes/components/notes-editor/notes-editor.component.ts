@@ -10,7 +10,9 @@ import {
 import { INote } from "../../../shared/types/note";
 import { FormControl, FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
 import { Subscription, debounceTime, distinctUntilChanged } from "rxjs";
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 
+@UntilDestroy()
 @Component({
   selector: "app-notes-editor",
   standalone: true,
@@ -37,7 +39,7 @@ export class NotesEditorComponent implements OnChanges {
       this.contentControl.setValue(this.note.content || "");
 
       this.subscribtion = this.contentControl.valueChanges
-        .pipe(debounceTime(this.debounce), distinctUntilChanged())
+        .pipe(debounceTime(this.debounce), distinctUntilChanged(), untilDestroyed(this))
         .subscribe((value) => {
           const updatedNote: INote = { ...this.note, content: value };
           this.onTextUpdate.emit(updatedNote);
