@@ -1,5 +1,5 @@
 import Dexie, { Table } from "dexie";
-import { INote } from "../notes/types/note";
+import { INote } from "../../notes/types/note";
 
 export class AppDB extends Dexie {
   notes!: Table<INote, string>;

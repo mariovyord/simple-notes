@@ -18,6 +18,6 @@ export class NoteCardComponent {
   constructor(private notesService: NotesService) {}
 
   public onDelete() {
-    this.notesService.deleteNote(this.note.id).subscribe();
+    this.notesService.deleteNote(this.note.id!);
   }
 }
