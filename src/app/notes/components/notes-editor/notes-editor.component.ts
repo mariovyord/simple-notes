@@ -11,12 +11,14 @@ import { FormControl, FormsModule, NgForm, ReactiveFormsModule } from "@angular/
 import { Subscription, debounceTime, distinctUntilChanged } from "rxjs";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { NoteEntity } from "../../../shared/types/note";
+import { QuillEditorComponent } from "ngx-quill";
+import { RichTextEditorComponent } from "../../../shared/components/rich-text-editor/rich-text-editor.component";
 
 @UntilDestroy()
 @Component({
   selector: "app-notes-editor",
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, RichTextEditorComponent],
   templateUrl: "./notes-editor.component.html",
   styleUrl: "./notes-editor.component.css",
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,5 +1,5 @@
 import { Observable, from } from "rxjs";
-import { db } from "../configs/db";
+import { db } from "../configs/db.config";
 import { INote } from "../types/note";
 
 export enum Collection {
