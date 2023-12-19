@@ -1,5 +1,6 @@
 <form class="h-full w-full" [formGroup]="editorForm">
   <quill-editor
+    [spellcheck]="false"
     format="object"
     formControlName="content"
     class="content-editor"

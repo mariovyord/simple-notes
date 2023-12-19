@@ -32,6 +32,6 @@ export class NoteEntity implements INote {
     }
 
     const firstOp = this.content.ops[0].insert.trim();
-    return firstOp.split("\n")[0].substring(0, 35).trim() + "...";
+    return firstOp.split("\n")[0].substring(0, 25).trim() + "...";
   }
 }
