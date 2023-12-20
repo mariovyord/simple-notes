@@ -4,8 +4,6 @@ PWA app for taking simple notes.
 
 Work in progress.
 
-![screenshot](screenshot.png)
-
 ## Libraries
 
 - Angular 17
