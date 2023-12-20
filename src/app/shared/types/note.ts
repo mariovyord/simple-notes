@@ -1,4 +1,5 @@
 import { Delta } from "quill";
+import { truncateToTitle } from "../../utils/truncate-to-title";
 
 export interface INote {
   id?: string;
@@ -31,7 +32,8 @@ export class NoteEntity implements INote {
       return "A Note";
     }
 
-    const firstOp = this.content.ops[0].insert.trim();
-    return firstOp.split("\n")[0].substring(0, 25).trim() + "...";
+    const firstOp = this.content.ops[0].insert.trim(); // takes the first operation
+    const cut = firstOp.split("\n")[0]; // takes the first line
+    return truncateToTitle(cut);
   }
 }

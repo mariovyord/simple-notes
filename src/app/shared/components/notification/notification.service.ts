@@ -18,7 +18,6 @@ export class NotificationService {
 
   public setErrorNotification(err: string) {
     this._errorNotification$.next(err);
-    console.log(this._errorNotification$.value);
     this.clearNotificationAfterDelay(this._errorNotification$);
   }
 
