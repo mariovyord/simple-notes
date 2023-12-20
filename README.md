@@ -4,6 +4,8 @@ PWA app for taking simple notes.
 
 Work in progress.
 
+![screenshot](screenshot.png)
+
 ## Libraries
 
 - Angular 17
@@ -20,4 +22,4 @@ All data is stored locally in the browser. No user data is being collected and n
 
 ## Themes
 
-The app has light and dark theme. It auto-selects theme based on browser preferences.
+The app has light and dark theme.
