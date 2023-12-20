@@ -8,7 +8,7 @@
   border: none;
 }
 
-.ql-editor {
+.ql-container.ql-snow {
   overflow-y: auto;
   max-height: calc(100vh - 42px);
 }
