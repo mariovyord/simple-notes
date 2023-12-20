@@ -7,11 +7,12 @@ import { MetaService } from "./services/meta.service";
 import { of, switchMap } from "rxjs";
 import { NoteEntity } from "../shared/types/note";
 import { DrawerComponent } from "../shared/components/drawer/drawer.component";
+import { NotificationComponent } from "../shared/components/notification/notification.component";
 
 @Component({
   selector: "app-notes",
   standalone: true,
-  imports: [NotesEditorComponent, NotesListComponent, CommonModule, DrawerComponent],
+  imports: [NotesEditorComponent, NotesListComponent, CommonModule, DrawerComponent, NotificationComponent],
   templateUrl: "./notes.component.html",
   styleUrl: "./notes.component.css",
   changeDetection: ChangeDetectionStrategy.OnPush,

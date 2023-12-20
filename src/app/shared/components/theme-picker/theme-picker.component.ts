@@ -30,6 +30,5 @@ export class ThemePickerComponent {
       this.isDark = false;
       this.themePickerService.saveTheme("light");
     }
-    console.log(this.isDark);
   }
 }

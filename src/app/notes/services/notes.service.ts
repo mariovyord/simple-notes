@@ -1,14 +1,11 @@
 import { Injectable } from "@angular/core";
 import { INote, NoteEntity } from "../../shared/types/note";
-import { BehaviorSubject, Observable, catchError, finalize, map, of, take } from "rxjs";
+import { BehaviorSubject, Observable, finalize, map, take } from "rxjs";
 import { Collection, IndexedDbService } from "../../shared/services/indexed-db.service";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { MetaService } from "./meta.service";
-/**
- * TODOs:
- * 1. Create DB service to abstract away the db interface - DONE
- * 2. Improve better handling - show notification of error
- */
+import { NotificationService } from "../../shared/components/notification/notification.service";
+
 @UntilDestroy()
 @Injectable({
   providedIn: "root",
@@ -18,7 +15,7 @@ export class NotesService extends IndexedDbService {
   private _initialized = false;
   private _fetching = false;
 
-  constructor(private metaService: MetaService) {
+  constructor(private metaService: MetaService, private notificationService: NotificationService) {
     super(Collection.notes);
   }
 
@@ -29,17 +26,18 @@ export class NotesService extends IndexedDbService {
       this.getAll()
         .pipe(
           untilDestroyed(this),
-          catchError((error) => {
-            console.error("Error fetching notes:", error);
-            return of([]);
-          }),
           finalize(() => {
             this._initialized = true;
             this._fetching = false;
           })
         )
-        .subscribe((n) => {
-          this._notes$.next(n);
+        .subscribe({
+          next: (n) => {
+            this._notes$.next(n);
+          },
+          error: () => {
+            this.notificationService.setErrorNotification("Failed to fetch the notes");
+          },
         });
     }
 
@@ -55,17 +53,24 @@ export class NotesService extends IndexedDbService {
 
     this.post(draftNote)
       .pipe(take(1))
-      .subscribe((id) => {
-        const notes = structuredClone(this._notes$.value);
-        const newNote: INote = {
-          id,
-          ...draftNote,
-        };
+      .subscribe({
+        next: (id) => {
+          const notes = structuredClone(this._notes$.value);
+          const newNote: INote = {
+            id,
+            ...draftNote,
+          };
 
-        notes.push(newNote);
+          notes.push(newNote);
 
-        this._notes$.next(notes);
-        this.metaService.selectNote(id);
+          this._notes$.next(notes);
+          this.metaService.selectNote(id);
+        },
+        error: () => {
+          this.notificationService.setErrorNotification(
+            "Failed to create a note. Please refresh the app and try again."
+          );
+        },
       });
   }
 
@@ -83,26 +88,38 @@ export class NotesService extends IndexedDbService {
 
     this.put(note)
       .pipe(take(1))
-      .subscribe(() => {
-        const notes = structuredClone(this._notes$.value);
-        const i = notes.findIndex((x) => x.id === note.id);
-        notes[i] = note;
-        this._notes$.next(notes);
+      .subscribe({
+        next: () => {
+          const notes = structuredClone(this._notes$.value);
+          const i = notes.findIndex((x) => x.id === note.id);
+          notes[i] = note;
+          this._notes$.next(notes);
+        },
+        error: () => {
+          this.notificationService.setErrorNotification(
+            "Failed to save note. Please try changing the text to update it again."
+          );
+        },
       });
   }
 
   public deleteNote(id: string): void {
     this.remove(id)
       .pipe(take(1))
-      .subscribe(() => {
-        let notes = structuredClone(this._notes$.value);
-        notes = notes.filter((x) => x.id !== id);
+      .subscribe({
+        next: () => {
+          let notes = structuredClone(this._notes$.value);
+          notes = notes.filter((x) => x.id !== id);
 
-        this._notes$.next(notes);
-        if (this._notes$.value.length > 0) {
-          const id = this._notes$.value[0].id!;
-          this.metaService.selectNote(id);
-        }
+          this._notes$.next(notes);
+          if (this._notes$.value.length > 0) {
+            const id = this._notes$.value[0].id!;
+            this.metaService.selectNote(id);
+          }
+        },
+        error: () => {
+          this.notificationService.setErrorNotification("Failed to delete note. Please refresh the app and try again.");
+        },
       });
   }
 }
