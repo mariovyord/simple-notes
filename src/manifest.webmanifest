@@ -22,6 +22,12 @@
       "sizes": "196x196",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/any_icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
