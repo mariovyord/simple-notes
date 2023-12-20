@@ -6,11 +6,12 @@ import { CommonModule } from "@angular/common";
 import { MetaService } from "./services/meta.service";
 import { of, switchMap } from "rxjs";
 import { NoteEntity } from "../shared/types/note";
+import { DrawerComponent } from "../shared/components/drawer/drawer.component";
 
 @Component({
   selector: "app-notes",
   standalone: true,
-  imports: [NotesEditorComponent, NotesListComponent, CommonModule],
+  imports: [NotesEditorComponent, NotesListComponent, CommonModule, DrawerComponent],
   templateUrl: "./notes.component.html",
   styleUrl: "./notes.component.css",
   changeDetection: ChangeDetectionStrategy.OnPush,

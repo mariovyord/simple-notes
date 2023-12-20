@@ -1,13 +1,18 @@
-<app-notes-list
-  (createNote)="createNote()"
-  [notes]="(notes$ | async) ?? []"
-></app-notes-list>
-
-@if(selectedNote$ | async) {
-<app-notes-editor
-  (updateNote)="updateNote($event)"
-  [note]="(selectedNote$ | async)!"
-></app-notes-editor>
-} @else {
-<div class="p-3 text-xl">Create your first note</div>
-}
+<app-drawer>
+  <ng-container id="drawer-side-slot">
+    <app-notes-list
+      (createNote)="createNote()"
+      [notes]="(notes$ | async) ?? []"
+    ></app-notes-list>
+  </ng-container>
+  <ng-container id="drawer-content-slot">
+    @if(selectedNote$ | async) {
+    <app-notes-editor
+      (updateNote)="updateNote($event)"
+      [note]="(selectedNote$ | async)!"
+    ></app-notes-editor>
+    } @else {
+    <div class="p-3 text-xl">Create your first note</div>
+    }
+  </ng-container>
+</app-drawer>

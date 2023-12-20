@@ -1,18 +1,14 @@
-<div
-  class="flex gap-1"
-  (mouseover)="displayDeleteBtn = true"
-  (mouseleave)="displayDeleteBtn = false"
->
+<div class="flex gap-1">
   <button
     (click)="onSelect()"
     class="btn btn-primary flex-1 justify-start"
-    [class.btn-primary]="(selectedNoteId | async) !== note.id"
+    [class.btn-neutral]="(selectedNoteId | async) !== note.id"
     [class.btn-accent]="(selectedNoteId | async) === note.id"
   >
     {{ note.title }}
   </button>
 
-  @if (displayDeleteBtn) {
+  @if ((selectedNoteId | async) === note.id) {
   <button
     class="tooltip tooltip-right flex justify-center items-center"
     data-tip="Delete"

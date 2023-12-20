@@ -1,0 +1,13 @@
+:host {
+  @apply drawer lg:drawer-open h-screen lg:grid-cols-[280px_1fr];
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-right: 4px white solid;
+  background-clip: padding-box;
+}

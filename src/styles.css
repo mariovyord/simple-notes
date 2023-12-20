@@ -4,5 +4,11 @@
 
 .ql-container.ql-snow,
 .ql-toolbar.ql-snow {
+  height: auto;
   border: none;
+}
+
+.ql-editor {
+  overflow-y: auto;
+  max-height: calc(100vh - 42px);
 }

@@ -16,7 +16,6 @@ export class NoteCardComponent {
   @Input() note: NoteEntity;
 
   public selectedNoteId = this.metaService.selectedNoteId;
-  public displayDeleteBtn = false;
 
   constructor(private notesService: NotesService, private metaService: MetaService) {}
 
