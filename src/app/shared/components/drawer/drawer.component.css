@@ -11,3 +11,7 @@
   border-right: 4px white solid;
   background-clip: padding-box;
 }
+
+::-webkit-scrollbar-thumb {
+  @apply border-slate-600;
+}

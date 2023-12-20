@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { NoteCardComponent } from "../note-card/note-card.component";
 import { NoteEntity } from "../../../shared/types/note";
 import { RouterLink } from "@angular/router";
+import { ThemePickerComponent } from "../../../shared/components/theme-picker/theme-picker.component";
 
 @Component({
   selector: "app-notes-list",
   standalone: true,
-  imports: [NoteCardComponent, RouterLink],
+  imports: [NoteCardComponent, RouterLink, ThemePickerComponent],
   templateUrl: "./notes-list.component.html",
   styleUrl: "./notes-list.component.css",
   changeDetection: ChangeDetectionStrategy.OnPush,

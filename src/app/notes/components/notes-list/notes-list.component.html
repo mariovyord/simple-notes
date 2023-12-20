@@ -11,19 +11,14 @@
     </button>
   </div>
 
-  <div class="mt-6 py-2">
+  <div class="mt-6 py-2 flex justify-between items-center">
     <a
       routerLink="/about"
-      class="hover:cursor-pointer text-2xl tooltip tooltip-right"
+      class="hover:cursor-pointer text-3xl tooltip tooltip-right"
       data-tip="App Information"
     >
       <div>&#9432;</div>
     </a>
-    <!-- TODO: Temporary theme switch for development -->
-    <input
-      type="checkbox"
-      value="light"
-      class="checkbox theme-controller ml-4"
-    />
+    <app-theme-picker></app-theme-picker>
   </div>
 </div>
