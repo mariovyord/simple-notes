@@ -109,12 +109,25 @@ export class NotesService extends IndexedDbService {
       .subscribe({
         next: () => {
           let notes = structuredClone(this._notes$.value);
-          notes = notes.filter((x) => x.id !== id);
+          let index;
+          notes = notes.filter((x, i) => {
+            if (x.id === id) {
+              index = i;
+            }
+
+            return x.id !== id;
+          });
 
           this._notes$.next(notes);
-          if (this._notes$.value.length > 0) {
+
+          if (index && this._notes$.value[index - 1]) {
+            const id = this._notes$.value[index - 1].id!;
+            this.metaService.selectNote(id);
+          } else if (this._notes$.value[0]) {
             const id = this._notes$.value[0].id!;
             this.metaService.selectNote(id);
+          } else {
+            this.metaService.selectNote("");
           }
         },
         error: () => {
