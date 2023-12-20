@@ -15,7 +15,7 @@ export class NotesListComponent {
   @Input({ required: true }) public notes: NoteEntity[];
   @Output() public createNote = new EventEmitter();
 
-  handleCreate() {
+  public handleCreate(): void {
     this.createNote.emit();
   }
 }

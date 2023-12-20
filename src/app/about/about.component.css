@@ -1,0 +1,3 @@
+:host {
+  @apply h-screen overflow-hidden grid grid-cols-[280px_1fr];
+}
