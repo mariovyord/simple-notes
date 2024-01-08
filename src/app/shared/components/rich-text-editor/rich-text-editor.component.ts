@@ -8,9 +8,11 @@ import {
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from "@angular/forms";
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { QuillModule } from "ngx-quill";
 import { Delta } from "quill";
 
+@UntilDestroy()
 @Component({
   selector: "app-rich-text-editor",
   standalone: true,
@@ -35,7 +37,7 @@ export class RichTextEditorComponent implements ControlValueAccessor, OnInit {
   }
 
   public ngOnInit(): void {
-    this.editorForm.controls["content"].valueChanges.subscribe((v) => {
+    this.editorForm.controls["content"].valueChanges.pipe(untilDestroyed(this)).subscribe((v) => {
       if (this.contentChanged) {
         this.contentChanged(v);
       }
