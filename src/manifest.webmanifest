@@ -1,6 +1,6 @@
 {
-  "name": "simple-notes",
-  "short_name": "simple-notes",
+  "name": "Simple Notes",
+  "short_name": "Simple Notes",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
